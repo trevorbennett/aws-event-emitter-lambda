@@ -26,15 +26,6 @@ let response;
 const handler = async (event, context) => {
     const client = new EventBridgeClient({ region: "us-east-2", credentials:credentials });
 
-    let dynamoDbGroupedResults = null; //call
-
-    const client = new DynamoDBClient({ region: "us-east-2" });
-
-    const params = {
-      /** input parameters */
-    };
-    const command = new BatchExecuteStatementCommand(params);
-
     for(dynamoDbGroupedResult in dynamoDbGroupedResults) {
         var params = {
             Entries: [
@@ -47,7 +38,7 @@ const handler = async (event, context) => {
                 Resources: [
                   'STRING_VALUE',
                 ],
-                Source: 'custom',
+                Source: 'event',
                 Time: new Date || 'Wed Dec 31 1969 16:00:00 GMT-0800 (PST)' || 123456789,
                 TraceHeader: 'STRING_VALUE'
               },
