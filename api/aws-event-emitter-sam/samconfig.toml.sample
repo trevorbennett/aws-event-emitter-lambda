@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "aws-event-emitter"
+s3_bucket = <DEPLOYMENT BUCKET HERE>
+s3_prefix = "aws-event-emitter"
+region = "us-east-1"
+profile = <IAM PROFILE FROM CREDENTIALS FILE HERE>
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Stage=\"dev\""
