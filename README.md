@@ -15,3 +15,9 @@ Reciever - Lambda called as the target of event bridge rule
 
 Rule - JSON validation policy within Eventbridge that, upon matching within the correct account and bus, calls a target
 
+
+### Deploying Resources
+
+Build the AWS resources with `sam build`
+
+Deploy using SAM guided deployment with `sam deploy --guided --profile my-test-iam-profile` in order to deploy the two lambdas and eventbridge rule

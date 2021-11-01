@@ -9,6 +9,11 @@ Description: >
 Globals:
   Function:
     Timeout: 3
+  
+Parameters:
+  Stage:
+    Type: "String"
+    Default: "dev"
 
 Resources:
   EventReceiverFunction:
@@ -35,6 +40,22 @@ Resources:
           Properties:
             Path: /emit-event
             Method: get
+  TestRule:
+    Type: AWS::Events::Rule
+    Properties:
+      EventPattern:
+        detail-type:
+          - test-emit-recieve
+      Targets: 
+        - Arn:  !GetAtt EventEmitterFunction.Arn
+        # TODO: REPLACE WITH RECIEVER
+          Id: OnEntryRuleTarget
+          RetryPolicy:
+            MaximumRetryAttempts: 4
+            MaximumEventAgeInSeconds: 400
+      EventBusName: default
+      Name: !Sub "${Stage}-TestRule"
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -48,3 +69,6 @@ Outputs:
   EventEmitterFunction:
     Description: "This emits an event to be received by eventbridge"
     Value: !GetAtt EventEmitterFunction.Arn
+  TestRule:
+    Description: "test123"
+    Value: !GetAtt TestRule.Arn
